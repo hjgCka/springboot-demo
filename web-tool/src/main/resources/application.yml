@@ -1,0 +1,7 @@
+server:
+  port: 8081
+  tomcat:
+    accept-count: 20
+    max-connections: 40
+    max-threads: 20
+    uri-encoding: utf-8
