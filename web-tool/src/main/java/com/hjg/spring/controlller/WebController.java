@@ -2,19 +2,24 @@ package com.hjg.spring.controlller;
 
 
 import com.hjg.spring.model.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Properties;
 
 
 @RestController
 @RequestMapping(value = "/cka")
+@Api(tags = "查看用户的接口")
 public class WebController {
 
     private static final Logger logger = LoggerFactory.getLogger(WebController.class);
@@ -22,7 +27,8 @@ public class WebController {
     @Autowired
     private Environment environment;
 
-    @RequestMapping("/get/user")
+    @ApiOperation("通过名称获取user")
+    @RequestMapping(value = "/get/user", method = {RequestMethod.GET, RequestMethod.POST})
     public User getUser(String name) {
         logger.info("name={}", name);
 
@@ -39,13 +45,16 @@ public class WebController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "/save/user", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ApiOperation("保存user")
+    @RequestMapping(value = "/save/user", method = {RequestMethod.POST}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public String saveUser(User user) {
         logger.info("user={}", user);
         return "success";
     }
 
-    @RequestMapping("/get/properties")
+    @ApiIgnore
+    @ApiOperation("获取虚拟机属性")
+    @RequestMapping(value = "/get/properties", method = {RequestMethod.GET, RequestMethod.POST})
     public String getProperties() {
 
         Properties properties = System.getProperties();
