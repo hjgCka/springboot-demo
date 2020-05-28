@@ -5,3 +5,7 @@ server:
     max-connections: 40
     max-threads: 20
     uri-encoding: utf-8
+
+common:
+  #name: ${test.name:James}
+  name: ${TEST_NAME:James}

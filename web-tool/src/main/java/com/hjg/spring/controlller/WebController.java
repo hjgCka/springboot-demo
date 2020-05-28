@@ -7,14 +7,13 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.Properties;
 
 
 @RestController
@@ -26,6 +25,15 @@ public class WebController {
 
     @Autowired
     private Environment environment;
+
+    //设置环境变量APP_NAME=WebTool，下面2种方法都能正确注入
+    //@Value("${app.name}")
+    //下面这种方法能够注入
+    @Value("${app.name}")
+    private String appName;
+
+    @Value("${common.name}")
+    private String commonName;
 
     @ApiOperation("通过名称获取user")
     @RequestMapping(value = "/get/user", method = {RequestMethod.GET, RequestMethod.POST})
@@ -54,11 +62,21 @@ public class WebController {
 
     @ApiIgnore
     @ApiOperation("获取虚拟机属性")
-    @RequestMapping(value = "/get/properties", method = {RequestMethod.GET, RequestMethod.POST})
-    public String getProperties() {
+    @RequestMapping(value = "/get/properties", method = {RequestMethod.GET, RequestMethod.POST}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Object getProperties() {
 
-        Properties properties = System.getProperties();
+        /*Properties properties = System.getProperties();
 
-        return properties.toString();
+        Map<String, String> map = new HashMap<>();
+
+        Enumeration keys = properties.propertyNames();
+        while (keys.hasMoreElements()) {
+            String key = (String)keys.nextElement();
+            map.put(key, properties.getProperty(key));
+        }
+
+        map.put("appName222", appName);*/
+
+        return appName + commonName;
     }
 }
