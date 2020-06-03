@@ -11,6 +11,7 @@
     <modules>
         <module>web-tool</module>
         <module>spel-module</module>
+        <module>mybatis-demo</module>
     </modules>
 
     <parent>
@@ -20,7 +21,6 @@
     </parent>
 
     <dependencies>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
