@@ -12,6 +12,8 @@
         <module>web-tool</module>
         <module>spel-module</module>
         <module>mybatis-demo</module>
+        <module>cloud-stream-rabbitmq</module>
+        <module>cloud-stream-kafka</module>
     </modules>
 
     <parent>
