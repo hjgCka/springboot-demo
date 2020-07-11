@@ -11,9 +11,10 @@
     <modules>
         <module>web-tool</module>
         <module>spel-module</module>
-        <module>mybatis-demo</module>
+        <module>mybatis</module>
         <module>cloud-stream-rabbitmq</module>
         <module>cloud-stream-kafka</module>
+        <module>mongodb</module>
     </modules>
 
     <parent>
