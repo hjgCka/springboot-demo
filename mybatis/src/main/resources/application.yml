@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: dev
+
+mybatis:
+
+  #设置主mybatis的配置文件位置
+  #config-location:
+
+  #当xml与接口不在同一个位置时使用
+  #mapper-locations:
+  type-aliases-package: com.hjg.mybatis.vo
