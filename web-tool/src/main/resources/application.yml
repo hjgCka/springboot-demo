@@ -6,6 +6,15 @@ server:
     max-threads: 20
     uri-encoding: utf-8
 
+http:
+  maxTotal: 200
+  defaultMaxPerRoute: 50
+  connectTimeout: 2000
+  connectionRequestTimeout: 4000
+  socketTimeout: 3000
+  retryCount: 0
+  requestSentRetryEnabled: false
+
 common:
   #name: ${test.name:James}
   name: ${TEST_NAME:James}
