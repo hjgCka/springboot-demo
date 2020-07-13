@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      custom:
+        hosts:
+          - 10.168.55.88
+        ports:
+          - 27017
+        username: mongoadmin
+        password: 123456
+        database: test
+        authentication-database: admin
