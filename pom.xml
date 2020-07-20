@@ -15,6 +15,9 @@
         <module>cloud-stream-rabbitmq</module>
         <module>cloud-stream-kafka</module>
         <module>mongodb</module>
+        <module>mongo-config</module>
+        <module>redis</module>
+        <module>email</module>
     </modules>
 
     <parent>
