@@ -1,7 +1,8 @@
 spring:
   data:
     mongodb:
-      custom:
+      convert-packages: com.hjg.mongodb.convert
+      primary:
         hosts:
           - 10.168.55.88
         ports:

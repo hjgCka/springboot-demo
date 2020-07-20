@@ -1,5 +1,6 @@
 package com.hjg.mongodb.vo;
 
+import com.hjg.mongodb.constant.BookType;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,4 +26,7 @@ public class Book {
 
     @Field("press_time")
     private Date pressTime;
+
+    @Field("type")
+    private BookType bookType;
 }
