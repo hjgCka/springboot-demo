@@ -1,24 +1,30 @@
 package com.hjg.email;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalTime;
 
-@SpringBootTest(args = {"--spring.mail.password=19921023abcde"})
+@SpringBootTest
 public class EmailAppTest {
 
     @Autowired
-    JavaMailSender javaMailSender;
+    JavaMailSenderImpl javaMailSender;
+
+    @BeforeEach
+    public void init() {
+        String password = "19921023abcde";
+        javaMailSender.setPassword(password);
+    }
 
     @Test
     public void testSendMail() {
