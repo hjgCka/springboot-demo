@@ -4,3 +4,10 @@ spring:
     port: 25
     username: computer_cka
     password:
+    #该属性来自mail的规范
+    properties:
+      mail:
+        smtp:
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
