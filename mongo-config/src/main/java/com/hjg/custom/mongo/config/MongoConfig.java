@@ -40,9 +40,8 @@ public class MongoConfig {
 
     @Bean
     @Primary
-    MongoTemplate primaryMongoTemplate(MongoMultiSettingProperties mongoMultiSettingProperties, MongoDbFactory primaryMongoDbFactory) {
-        String[] convertPackages = mongoMultiSettingProperties.getConvertPackages();
-        return this.createMongoTemplate(convertPackages, primaryMongoDbFactory);
+    MongoTemplate primaryMongoTemplate(MongoCustomConversions customConversions, MongoDbFactory primaryMongoDbFactory) {
+        return this.createMongoTemplate(customConversions, primaryMongoDbFactory);
     }
 
     @Bean
@@ -53,9 +52,8 @@ public class MongoConfig {
 
     @ConditionalOnProperty(prefix = "spring.data.mongodb.secondary", name = {"hosts[0]", "ports[0]", "database"})
     @Bean
-    MongoTemplate secondaryMongoTemplate(MongoMultiSettingProperties mongoMultiSettingProperties, @Qualifier("secondaryMongoDbFactory") MongoDbFactory secondaryMongoDbFactory) {
-        String[] convertPackages = mongoMultiSettingProperties.getConvertPackages();
-        return this.createMongoTemplate(convertPackages, secondaryMongoDbFactory);
+    MongoTemplate secondaryMongoTemplate(MongoCustomConversions customConversions, @Qualifier("secondaryMongoDbFactory") MongoDbFactory secondaryMongoDbFactory) {
+        return this.createMongoTemplate(customConversions, secondaryMongoDbFactory);
     }
 
     @ConditionalOnProperty(prefix = "spring.data.mongodb.secondary", name = {"hosts[0]", "ports[0]", "database"})
@@ -64,13 +62,13 @@ public class MongoConfig {
         return this.createMongoDbFactory(mongoMultiSettingProperties.getSecondary());
     }
 
-    private MongoTemplate createMongoTemplate(String[] convertPackages, MongoDbFactory mongoDbFactory){
+    private MongoTemplate createMongoTemplate(MongoCustomConversions customConversions, MongoDbFactory mongoDbFactory){
         //保存时不再保存_class字段
         MongoMappingContext mongoMappingContext = new MongoMappingContext();
         MappingMongoConverter mappingMongoConverter = new MappingMongoConverter(new DefaultDbRefResolver(mongoDbFactory), mongoMappingContext);
         mappingMongoConverter.setTypeMapper(new DefaultMongoTypeMapper(null));
 
-        mappingMongoConverter.setCustomConversions(customConversions(convertPackages));
+        mappingMongoConverter.setCustomConversions(customConversions);
 
         mappingMongoConverter.afterPropertiesSet();
 
@@ -78,7 +76,9 @@ public class MongoConfig {
     }
 
     @Bean
-    public MongoCustomConversions customConversions(String[] convertPackages){
+    public MongoCustomConversions customConversions(MongoMultiSettingProperties mongoMultiSettingProperties){
+
+        String[] convertPackages = mongoMultiSettingProperties.getConvertPackages();
 
         List converterList = new ArrayList();
 

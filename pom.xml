@@ -18,7 +18,8 @@
         <module>mongo-config</module>
         <module>redis</module>
         <module>email</module>
-        <module>aop</module>
+        <module>scheduler</module>
+        <module>oxm</module>
     </modules>
 
     <parent>
