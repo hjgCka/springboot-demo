@@ -4,7 +4,7 @@ spring:
     port: 25
     username: computer_cka
     password:
-    #该属性来自mail的规范
+    #该属性来自mail的规范，再javadoc查看完整的属性
     properties:
       mail:
         smtp:
