@@ -6,6 +6,8 @@
 
 需要访问外部服务时，注入CloseableHttpClient对象即可。
 
+http://localhost:8081/swagger-ui.html，访问swagger地址
+
 #### mybatis
 
 使用mybatis的例子，数据源使用HikariCP。
