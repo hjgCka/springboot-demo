@@ -75,6 +75,7 @@ public class MongoConfig {
         return new MongoTemplate(mongoDbFactory, mappingMongoConverter);
     }
 
+    //TODO 使用ImportBeanDefinitionRegistrar来完成包的扫描
     @Bean
     public MongoCustomConversions customConversions(MongoMultiSettingProperties mongoMultiSettingProperties){
 

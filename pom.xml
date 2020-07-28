@@ -19,6 +19,7 @@
         <module>email</module>
         <module>scheduler</module>
         <module>oxm</module>
+        <module>redis-config</module>
     </modules>
 
     <parent>
