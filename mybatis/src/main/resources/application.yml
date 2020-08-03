@@ -5,7 +5,7 @@ spring:
 mybatis:
 
   #设置主mybatis的配置文件位置
-  #config-location:
+  #com.chinamobile.rcs.commons.config-location:
 
   #当xml与接口不在同一个位置时使用
   #mapper-locations:
