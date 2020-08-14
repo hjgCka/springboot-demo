@@ -1,0 +1,7 @@
+spring:
+  rabbitmq:
+    host: 10.153.61.37
+    port: 8672
+    username: u-rabbitmq-app
+    password: IMSdev123
+
