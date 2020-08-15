@@ -1,0 +1,27 @@
+spring:
+  data:
+    mongodb:
+      #convert-packages:
+      #  - com.chinamobile.rcs.aih.bms.bill.utils.converter
+      primary:
+        hosts:
+          - 10.153.61.38
+        ports:
+          - 8717
+        username: mongoadmin
+        password: 123456
+        database: aih_bms
+        authentication-database: admin
+        connections-per-host: 20
+        min-connections-per-host: 20
+      secondary:
+        hosts:
+          - 10.153.61.38
+        ports:
+          - 8717
+        username: mongoadmin
+        password: 123456
+        database: aih_ums_custom
+        authentication-database: admin
+        connections-per-host: 20
+        min-connections-per-host: 20
