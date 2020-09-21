@@ -6,6 +6,7 @@
         <groupId>com.hjg.spring</groupId>
         <artifactId>cka-api-dependencies</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

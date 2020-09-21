@@ -21,6 +21,7 @@
         <module>oxm</module>
         <module>redis-config</module>
         <module>rabbitmq</module>
+        <module>rabbitmq2</module>
     </modules>
 
     <parent>
