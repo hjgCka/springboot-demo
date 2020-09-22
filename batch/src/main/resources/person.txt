@@ -1,0 +1,5 @@
+James,19,Clever land
+Kobe,24,LosAngels
+Jimmy,20,Miami
+Rose,22,Chiago
+Paul,24,Eklahome
