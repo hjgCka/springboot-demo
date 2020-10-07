@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+
+    <springProperty scope="local" name="SYS_NAME" source="spring.system.name"/>
+    <springProperty scope="local" name="APP_NAME" source="spring.application.name"/>
+
+    <!-- 日志文件路径 -->
+    <property name="LOG_FILE_PATH_DEV" value="c:/logs/${SYS_NAME}" />
+    <property name="LOG_FILE_PATH_TEST" value="/tmp/log/${SYS_NAME}" />
+    <property name="LOG_FILE_PATH_PROD" value="/tmp/log/${SYS_NAME}" />
+
+    <!--为了使用CONSOLE_LOG_PATTERN配置，需要包括这个资源-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+    <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>[${SYS_NAME}]-[${APP_NAME}] : ${CONSOLE_LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <!-- 每天产生一个文件 -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <!-- 文件名称 -->
+                <fileNamePattern>${LOG_FILE_PATH_DEV}/${SYS_NAME}-${APP_NAME}-info-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+                <!-- 文件最大保存历史天数 -->
+                <maxHistory>2</maxHistory>
+                <!-- 单个文件最大大小 -->
+                <maxFileSize>100MB</maxFileSize>
+                <!-- 所有文件最大大小 -->
+                <totalSizeCap>10GB</totalSizeCap>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>[${SYS_NAME}]-[${APP_NAME}] : ${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <!--<appender-ref ref="FILE" />-->
+        </root>
+    </springProfile>
+
+</configuration>
