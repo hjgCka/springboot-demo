@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hjg.kafka.demo.model.Book;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.RoundRobinAssignor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -14,6 +15,7 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
+import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.HashMap;
@@ -67,13 +69,16 @@ public class KafkaConfiguration {
         //确定topic有3个分区，会创建3个KafkaMessageListenerContainer。而每个KafkaMessageListenerContainer使用一个线程。
         factory.setConcurrency(3);
         factory.getContainerProperties().setPollTimeout(3000);
+        //是否使用同步提交offset
+        factory.getContainerProperties().setSyncCommits(false);
+        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.BATCH);
         return factory;
     }
 
     @Bean
     public ConsumerFactory<String, Book> consumerFactory() {
         Map<String, Object> props = kafkaProperties.getConsumer().buildProperties();
-        props.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, "org.apache.kafka.clients.consumer.RoundRobinAssignor");
+        props.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, RoundRobinAssignor.class.getName());
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
