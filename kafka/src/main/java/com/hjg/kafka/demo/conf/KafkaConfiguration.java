@@ -6,6 +6,7 @@ import com.hjg.kafka.demo.model.Book;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.RoundRobinAssignor;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -63,9 +64,10 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Book>> kafkaListenerContainerFactory() {
+    KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Book>>
+        kafkaListenerContainerFactory(ConsumerFactory<String, Book> consumerFactory) {
         ConcurrentKafkaListenerContainerFactory<String, Book> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
+        factory.setConsumerFactory(consumerFactory);
         //确定topic有3个分区，会创建3个KafkaMessageListenerContainer。而每个KafkaMessageListenerContainer使用一个线程。
         factory.setConcurrency(3);
         factory.getContainerProperties().setPollTimeout(3000);
@@ -76,10 +78,11 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    public ConsumerFactory<String, Book> consumerFactory() {
+    public ConsumerFactory<String, Book> consumerFactory(JsonDeserializer jsonDeserializer) {
         Map<String, Object> props = kafkaProperties.getConsumer().buildProperties();
         props.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, RoundRobinAssignor.class.getName());
-        return new DefaultKafkaConsumerFactory<>(props);
+        //不能只在yml配置属性
+        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), jsonDeserializer);
     }
 
     /*@Bean

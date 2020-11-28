@@ -12,8 +12,9 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       enable-auto-commit: false
       auto-offset-reset: earliest
-      properties:
-        spring.json.trusted.packages: com.chinamobile.rcs.aih.model
+      #properties:
+      # 使用这个属性会导致warn日志
+      #  spring.json.trusted.packages: com.chinamobile.rcs.aih.model
 
 kafka:
   topic:
