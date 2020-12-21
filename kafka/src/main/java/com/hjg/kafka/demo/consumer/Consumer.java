@@ -23,7 +23,7 @@ public class Consumer {
     KafkaTemplate<String, Book> kafkaTemplate;
 
     /**
-     * id属性用于group.id，它会覆盖consumer factory的值
+     * id属性用于消费者组的group.id，它会覆盖consumer factory的值。
      * 可以设置@KafkaListener创建得消费者前缀
      * @param book
      */

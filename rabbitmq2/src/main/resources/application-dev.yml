@@ -1,0 +1,19 @@
+
+
+spring:
+  rabbitmq:
+    host: 10.153.61.37
+    port: 8672
+    username: u-rabbitmq-app
+    password: IMSdev123
+    # 配置监听容器工厂配置
+    listener:
+      type: SIMPLE
+      simple:
+        acknowledge-mode: auto
+        # 消费者抛出异常时，直接丢弃消息
+        # default-requeue-rejected: false
+    #配置connection和channel资源
+    cache:
+      channel:
+        size: 50
