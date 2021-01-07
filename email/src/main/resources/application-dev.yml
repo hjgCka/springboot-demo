@@ -3,7 +3,7 @@ spring:
     host: smtp.163.com
     port: 25
     username: computer_cka
-    password:
+    password: 19921023abcde
     #该属性来自mail的规范，再javadoc查看完整的属性
     properties:
       mail:
