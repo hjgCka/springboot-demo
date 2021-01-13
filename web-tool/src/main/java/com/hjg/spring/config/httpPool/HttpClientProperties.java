@@ -1,4 +1,4 @@
-package com.hjg.spring.config;
+package com.hjg.spring.config.httpPool;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

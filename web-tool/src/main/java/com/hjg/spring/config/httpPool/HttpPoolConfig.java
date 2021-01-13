@@ -1,4 +1,4 @@
-package com.hjg.spring.config;
+package com.hjg.spring.config.httpPool;
 
 import org.apache.http.HeaderElement;
 import org.apache.http.HeaderElementIterator;
