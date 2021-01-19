@@ -2,7 +2,6 @@ package com.hjg.spring.model;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -14,5 +13,5 @@ import java.util.Date;
 public class Book {
     private String name;
     private String author;
-    private LocalDateTime publishDate = LocalDateTime.now();
+    private Date publishDate = new Date();
 }
