@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * @description:
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * @createdOn: 2021/1/12
  */
 @Configuration
-@EnableWebMvc
 public class AppConfig {
 
     @Bean
@@ -23,5 +21,6 @@ public class AppConfig {
         Book book = new Book();
         return book;
     }
+
 
 }

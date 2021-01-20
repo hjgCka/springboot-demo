@@ -1,6 +1,9 @@
 package com.hjg.spring.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @description:
@@ -12,4 +15,5 @@ public class Person {
     String name;
     int age;
     int weight;
+    Date birthDay;
 }
