@@ -1,6 +1,5 @@
 package com.hjg.spring.config.web;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -12,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  * @author: hjg
  * @createdOn: 2021/1/20
  */
-@Configuration
+//@Configuration
 public class MyWebMvcConfigSupport extends WebMvcConfigurationSupport {
 
     /**
