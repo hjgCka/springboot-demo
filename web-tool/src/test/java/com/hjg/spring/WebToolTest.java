@@ -7,8 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @description:
@@ -27,6 +32,12 @@ public class WebToolTest {
     @Autowired
     DefaultFormattingConversionService defaultService;
 
+    @Autowired
+    ThymeleafViewResolver viewResolver;
+
+    @Autowired
+    ContentNegotiatingViewResolver contentResolver;
+
     @Test
     public void converterTest() {
         //通过执行这个测试用例，可知实际上Spring MVC还是使用了DefaultFormattingConversionService
@@ -40,6 +51,30 @@ public class WebToolTest {
         String personStr = "Jack_22";
         Person person = defaultService.convert(personStr, Person.class);
         System.out.println(person);
+    }
+
+    @Test
+    public void viewResolverTest() {
+        Map<String, ViewResolver> map = applicationContext.getBeansOfType(ViewResolver.class);
+        map.entrySet().stream().forEach(e -> {
+            System.out.println(e.getKey());
+            System.out.println(e.getValue().getClass());
+        });
+    }
+
+    @Test
+    public void thymeTest() {
+        int order = viewResolver.getOrder();
+        System.out.println(order);
+
+        String contentType = viewResolver.getContentType();
+        System.out.println(contentType);
+    }
+
+    @Test
+    public void contentResolverTest() {
+        List<ViewResolver> list = contentResolver.getViewResolvers();
+        list.stream().forEach(e -> System.out.println(e.getClass()));
     }
 
 }

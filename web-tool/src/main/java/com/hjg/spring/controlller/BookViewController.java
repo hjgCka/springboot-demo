@@ -28,6 +28,7 @@ public class BookViewController {
 
     @RequestMapping("/book/info")
     public String bookHtml() {
+        //model中有一个book对象，可以给视图模板使用
         return "book";
     }
 }

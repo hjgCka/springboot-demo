@@ -1,12 +1,12 @@
 package com.hjg.spring.config.web;
 
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @author: hjg
  * @createdOn: 2021/1/13
  */
-@Component
+@Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {
 
     /**
@@ -37,20 +37,32 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
     }
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        //Jackson作为JSON渲染的默认视图
+        //注册ContentNegotiatingViewResolver解析器，并配置默认视图
         registry.enableContentNegotiation(new MappingJackson2JsonView());
     }
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        //表示当通过路径扩展名或查询参数(format)，判断为json时，就是RFD的白名单
-        //ContentNegotiatingViewResolver通过请求类型，交给不同的ViewResolver进行解析
+        //禁用路径名扩展
+        configurer.favorPathExtension(false);
+        //默认是通过请求头的Accept进行内容协商
+        configurer.favorParameter(true);
+        //默认参数名称是format，通过这个参数确定请求类型
+        configurer.parameterName("format");
+        //ContentNegotiatingViewResolver通过请求类型，确定不同的响应类型
+        configurer.defaultContentType(MediaType.TEXT_HTML);
         configurer.mediaType("json", MediaType.APPLICATION_JSON);
+        configurer.mediaType("html", MediaType.TEXT_HTML);
+    }
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        //禁用路径名扩展
+        configurer.setUseSuffixPatternMatch(false);
     }
 
     @Override
