@@ -1,5 +1,6 @@
 package com.hjg.spring;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hjg.spring.model.Person;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +8,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -75,6 +79,22 @@ public class WebToolTest {
     public void contentResolverTest() {
         List<ViewResolver> list = contentResolver.getViewResolvers();
         list.stream().forEach(e -> System.out.println(e.getClass()));
+    }
+
+    @Test
+    public void httpConverterTest() throws JsonProcessingException {
+        Map<String, HttpMessageConverter> map = applicationContext.getBeansOfType(HttpMessageConverter.class);
+        map.entrySet().stream().forEach(e -> {
+            System.out.println(e.getKey());
+            System.out.println(e.getValue().getClass());
+        });
+
+        Person person = new Person();
+        person.setBirthDay(new Date());
+
+        MappingJackson2HttpMessageConverter jsonConverter = applicationContext.getBean(MappingJackson2HttpMessageConverter.class);
+        String json = jsonConverter.getObjectMapper().writeValueAsString(person);
+        System.out.println(json);
     }
 
 }

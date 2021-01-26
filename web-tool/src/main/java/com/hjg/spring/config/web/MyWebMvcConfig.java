@@ -1,6 +1,7 @@
 package com.hjg.spring.config.web;
 
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
@@ -65,18 +66,25 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
         configurer.setUseSuffixPatternMatch(false);
     }
 
+    /**
+     * @param converters
+     */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        //添加自定义的消息转换器
+        //springboot自动注册StringHttpMessageConverter和MappingJackson2HttpMessageConverter
+        //所以这里的修改是无法生效，需要直接修改MappingJackson2HttpMessageConverter使用的ObjectMapper
+        //或自己定义一个MappingJackson2HttpMessageConverter
+    }
+
+    @Bean
+    public MappingJackson2HttpMessageConverter jsonConverter() {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
                 .indentOutput(true)
                 .dateFormat(new SimpleDateFormat("yyyy-MM-dd"))
                 .modulesToInstall(new ParameterNamesModule())
                 //反序列化时，未知的属性不会导致失败
                 .failOnUnknownProperties(false);
-        converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
-        //要使用xml转换功能，需要相应的依赖
-        //converters.add(new MappingJackson2XmlHttpMessageConverter(builder.createXmlMapper(true).build()));
+        return new MappingJackson2HttpMessageConverter(builder.build());
     }
 
     @Override
