@@ -68,7 +68,7 @@ public class WebToolTest {
 
     @Test
     public void thymeTest() {
-        int order = viewResolver.getOrder();
+        int order = contentResolver.getOrder();
         System.out.println(order);
 
         String contentType = viewResolver.getContentType();
