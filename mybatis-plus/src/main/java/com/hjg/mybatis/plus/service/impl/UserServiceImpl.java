@@ -29,4 +29,9 @@ public class UserServiceImpl implements UserService {
         logger.info("list = {}", list);
         return list;
     }
+
+    @Override
+    public void saveUser(User user) {
+        userMapper.insert(user);
+    }
 }

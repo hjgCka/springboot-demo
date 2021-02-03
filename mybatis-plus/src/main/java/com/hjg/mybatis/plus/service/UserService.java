@@ -12,4 +12,6 @@ import java.util.List;
 public interface UserService {
 
     List<User> selectAllUsers();
+
+    void saveUser(User user);
 }
