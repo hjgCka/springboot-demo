@@ -1,7 +1,7 @@
 package com.hjg.mybatis.plus;
 
-import com.hjg.mybatis.plus.mapper.UserMapper;
 import com.hjg.mybatis.plus.model.User;
+import com.hjg.mybatis.plus.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,11 +17,10 @@ import java.util.List;
 public class MybatisPlusTest {
 
     @Autowired
-    UserMapper userMapper;
+    UserService userService;
 
     @Test
     public void userMapperTest() {
-        List<User> list = userMapper.selectList(null);
-        list.stream().forEach(e -> System.out.println(e));
+        List<User> list = userService.selectAllUsers();
     }
 }

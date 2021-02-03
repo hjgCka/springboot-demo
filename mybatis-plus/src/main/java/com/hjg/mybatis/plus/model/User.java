@@ -6,13 +6,15 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @description:
  * @author: hjg
  * @createdOn: 2021/1/28
  */
 @Data
-@TableName("user")
+@TableName("t_user")
 public class User {
     @TableId("id_")
     private Integer id;
@@ -25,6 +27,9 @@ public class User {
 
     @TableField("email_")
     private String email;
+
+    @TableField("birthday_")
+    private Date birthDay;
 
     @Version
     @TableField("version_")
