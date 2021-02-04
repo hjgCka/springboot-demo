@@ -15,7 +15,7 @@ public class MybatisAppTest {
     @Test
     public void findTest() {
         String id = "1";
-        Blog blog = blogService.selectBlog(id);
+        Blog blog = blogService.getBlogById(id);
         System.out.println("blog = " + blog);
     }
 }

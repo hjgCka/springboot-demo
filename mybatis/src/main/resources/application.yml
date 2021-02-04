@@ -1,6 +1,10 @@
 spring:
   profiles:
     active: dev
+  system:
+    name: springboot-demo
+  application:
+    name: mybatis
 
 mybatis:
 
