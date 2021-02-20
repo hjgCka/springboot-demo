@@ -17,3 +17,16 @@ http:
   socketTimeout: 3000
   retryCount: 0
   requestSentRetryEnabled: false
+
+info:
+  app:
+    encoding: utf-8
+    java:
+      source: 1.8
+      target: 1.8
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,beans
