@@ -1,4 +1,9 @@
 
+###设置环境变量时，根据queue.phone.maxConcurrency，配置需要为QUEUE_PHONE_MAXCONCURRENCY
+queue:
+  phone:
+    concurrency: 10
+    maxConcurrency: 20
 
 spring:
   rabbitmq:
@@ -17,3 +22,4 @@ spring:
     cache:
       channel:
         size: 50
+    virtual-host: /

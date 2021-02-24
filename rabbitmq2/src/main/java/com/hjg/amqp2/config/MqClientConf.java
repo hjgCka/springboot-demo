@@ -45,6 +45,7 @@ public class MqClientConf {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitProperties.getHost(), rabbitProperties.getPort());
         connectionFactory.setUsername(rabbitProperties.getUsername());
         connectionFactory.setPassword(rabbitProperties.getPassword());
+        connectionFactory.setVirtualHost(rabbitProperties.getVirtualHost());
 
         //默认缓存模式为channel
         //设置channel的缓存大小，防止频繁创建和关闭channel。默认值为25。
@@ -148,9 +149,9 @@ public class MqClientConf {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setThreadNamePrefix("queue_consumer");
         //核心池大小必须大于等于，所有的MessageListenerContainer的ConcurrencyConsumer属性总和。
-        executor.setCorePoolSize(40);
-        executor.setMaxPoolSize(60);
-        executor.setQueueCapacity(10);
+        executor.setCorePoolSize(100);
+        executor.setMaxPoolSize(200);
+        executor.setQueueCapacity(60);
         return executor;
     }
 
@@ -169,6 +170,7 @@ public class MqClientConf {
 
         //设置并发，默认20个消费者(线程)，最大50个消费者(线程)
         //会被@RabbitListener设置的值覆盖
+        //这也最好为每个队列设置单独的属性值
         containerFactory.setConcurrentConsumers(20);
         containerFactory.setMaxConcurrentConsumers(50);
 

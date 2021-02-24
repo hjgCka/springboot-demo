@@ -20,7 +20,7 @@ public class MessageReceiver {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageReceiver.class);
 
-    @RabbitListener(queues = AppConstants.PHONE_QUEUE, concurrency = "20-50")
+    @RabbitListener(queues = AppConstants.PHONE_QUEUE, concurrency = "${queue.phone.concurrency}-${queue.phone.maxConcurrency}")
     public void recordPhone(Phone phone, Message message) {
         MessageProperties messageProperties = message.getMessageProperties();
         logger.info("messageProperties = {}", messageProperties);
